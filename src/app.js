@@ -2,6 +2,12 @@ const express = require('express')
 const morgan = require('morgan')
 const path = require('path'); 
 const handlebars = require('express-handlebars')
+const route = require('./routes')
+
+const db = require('./config/db')
+
+// connect to db
+db.connect()
 
 const app = express()
 const port = 3000
@@ -24,26 +30,8 @@ app.engine('hbs', handlebars.engine({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
-// router
-app.get('/', (req, res) => {
-   res.render('home');
-})
-
-app.get('/news', (req, res) => {
-//  console.log(req, express.query.q);
-  res.render('news');
-})
-
-app.get('/search', (req, res) => {
- // console.log(req, express.query.q); lấy data
-  res.render('search');
-})
-
-app.post('/search', (req, res) => {
-  console.log(req, express.body);
-  res.send('');
-})
-
+// route init 
+route(app) 
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
