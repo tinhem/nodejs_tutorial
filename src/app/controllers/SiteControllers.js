@@ -1,5 +1,5 @@
 const course = require('../models/node')
-import { mutipleMongooseToObject } from '../../util/mongoose'
+const { mutipleMongooseToObject } = require('../../util/mongoose');
 class SiteControllers {
     // get /home
     home(req, res, next) {
@@ -14,8 +14,8 @@ class SiteControllers {
 
         course.find({})
         .then(courses => {
-            res.render('home', {
-            courses: mutipleMongooseToObject(courses)})
+            courses = courses.map(course => course.toObject())
+            res.render('home', {courses})
         })
         .catch(next)
           
