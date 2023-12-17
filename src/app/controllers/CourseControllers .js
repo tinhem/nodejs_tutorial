@@ -18,9 +18,11 @@ class CourseControllers {
 
     store(req, res, next) {
          req.body.image = `https://img.youtube.com/vi/${req.body.videoId}/sddefault.jpg`;
-         const Course = new course(req.body);
-         Course.save();
-        
+        //  const Course = new course(req.body);
+        //  Course.save()
+        //  .then(() => res.redirect('/home'))
+        //  .catch((error) => {});
+        res.json(req.body)
     }
 }
 
